@@ -5,7 +5,7 @@ class container {
     this.file = file
   }
 save(object){
-  fs.appendFile(JSON.stringify(object) , err=>{
+  fs.appendFile(this.file, JSON.stringify(object) , err=>{
     if(err){
       throw new Error('this object could´s not save in the specified route')
     }else{
