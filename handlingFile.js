@@ -1,24 +1,49 @@
-const fs = require('fs')
+
+
+// en la clase container se busca crear metodos para que el archivo que se pasa como parametro pueda realizar diferentes acciones como 
+// save(object)recibe un objeto lo guarda en el archivo y devuelve el id asignado
+// getByid(number) recibe un id y devuelve el objeto con ese id o null si esta vacio
+// getAll() devuelve un array con los objetos presentes en el archivo
+// deleteById(numbre)elimina un objeto con el id traido por parámetro
+// deleteAll()elimina todos los objetos presentes en el archivo
+
+const fs = require('fs') ;
 
 class container {
   constructor(file){
-    this.file = file
+ this.file = file
   }
 save(object){
-  fs.appendFile(this.file, JSON.stringify(object) , err=>{
+  fs.writeFile(this.file ,JSON.stringify(object, null, 2), (err)=>{
     if(err){
-      throw new Error('this object could´s not save in the specified route')
+      console.log('not can do write file')
     }else{
-      console.log('done!')
+      console.log('good job')
     }
-  })
+  } )
+return object.id
 }
 }
 
-let persona ={
-  id:1,
-  name:'pepe',
-  city:'Buenos Aires'
-}
-const file1 = new container('./info.txt');
-file1.save(persona)
+
+  guitar ={
+    id: 1,
+    name: 'Fender telecaster',
+    price: 1300,
+    thumbnail: 'https://guitar.com/guides/essential-guide/vintage-fender-telecaster-buying-guide/'
+  },
+  pedal ={
+    id: 2,
+    name: 'Morning Glory JHS',
+    price: 900,
+    thumbnail:'https://www.nstuffmusic.com/p-97838-jhs-morning-glory-v4-overdrive-pedal.aspx'
+  },
+  amplifier ={
+    id: 3 ,
+    name: 'Vox ac 30', 
+    price: 2300,
+    thumbnail: 'http://blueaudiostore.com.ar/bas/home/4750-amplificador-de-guitarra-vox-ac30-c2-30w-combo-valvular.html'
+  }
+const mock  = new container('./mock.json')
+mock.save(amplifier) //===> aca creo mediante la instancia de la clase un objeto en json pero solo el obj no el array 
+//entendi  que la consigna dice que debo pushear en un array los objetos para poder luego mediante los metodos de la clase buscar por id. 
