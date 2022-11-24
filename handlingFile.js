@@ -60,6 +60,13 @@ amplifier = {
 ]
 
 
-const search  =(array , num ) => {
-  array   
+const search  =(array ,id , num ) => {
+ for(e of array){
+  if(e.id === id){
+    array.splice(e.name , num)
+  }
+ }
+ console.log(array)
 }
+
+search(element, 1 ,1 )

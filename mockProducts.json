@@ -6,15 +6,15 @@
     "thumbnail": "https://www.jhspedals.info/morning-glory-v4"
   },
   {
-    "id": 3,
-    "name": "Vox AC -30",
-    "price": 3000,
-    "thumbnail": "https://voxamps.com/es/producto/ac30-onetwelve/"
-  },
-  {
     "id": 1,
     "name": "Fender Telecaster",
     "price": 2300,
     "thumbnail": "https://tiendamia.com/ar/producto?amz=B07CXJSFTH&pName=Fender-Player-Telecaster-Electric-Guitar-Maple-Fingerboard-Buttercream"
+  },
+  {
+    "id": 3,
+    "name": "Vox AC -30",
+    "price": 3000,
+    "thumbnail": "https://voxamps.com/es/producto/ac30-onetwelve/"
   }
 ]

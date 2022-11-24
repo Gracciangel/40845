@@ -59,18 +59,33 @@ class container {
         })
     }
     deleteById(number){
-        
+    fs.readFile(this.file , (err, data) => {
+        if(err){
+            console.log(err)
+        }else{
+            let array = JSON.parse(data ,null , 2)
+            array.forEach(element => {
+            if(number === element.id){
+                array.splice(element.id , 1)
+                console.log(array)
+            }
+            });
+        }
+    })
+    
     }
   
     deleteAll(){
-        fs.writeFile(this.file, '' , err => {
-            err? console.log(err) : console.log('delete all ')
-        })
+        fs.writeFile(this.file , ' ', err=> {
+            err ?console.log(err) : console.log('delete all ')
+        } )
     }
 }
-
+//instance
 
 const mockProducts = new container('./mockProducts.json')
+
+//fileAdd
 
 const add = (array, obj) => {
     array.push(obj)
@@ -85,6 +100,11 @@ const createFile = (file) =>{
         err? console.log('error fatal') : console.log('created file')
     })
 }
+// add(products , pedal)
+// add(products , guitar)
+// add(products , amplifier)
+// mockProducts.save(products)
 
+// mockProducts.deleteAll()
 
-
+mockProducts.deleteById(2)
