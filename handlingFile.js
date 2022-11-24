@@ -1,49 +1,65 @@
+// const fs = require('fs')
+
+// //callback es una instruccion que se ejecuta una vez que la funcion termina de hacer lo que tenia que hacer 
+// //readFile toma dos parametros el primero es una ruta de acceso al archivo y el segundo es un callback que tiene dos parametros el primero es un error y el segundo es lol que e está dentro del archivo. en este caso lo que está dentro del archivo es un texto que dice 'hello world!' al escribir el archivo con writeFile, ubicamos el texto dentro de el archivo que se escribe como parametro al inicio del fs.writeFile(). el callback del writeFile es lo segundo que va a ejecutarse al terminar la primer instruccion que es crear el archivo y poner es esta caso una linea de código. luego se ejecuta la segunda insrtruccion que es todo lo que viene anidado al callback. en este caso es un console.log y una lectura mediante el fs.readFile() del archivo creado, este readFile tambien tiene un callback que maneja dos parametros el primer es un error y el segundo es el contenido del arhivo.
 
 
-// en la clase container se busca crear metodos para que el archivo que se pasa como parametro pueda realizar diferentes acciones como 
-// save(object)recibe un objeto lo guarda en el archivo y devuelve el id asignado
-// getByid(number) recibe un id y devuelve el objeto con ese id o null si esta vacio
-// getAll() devuelve un array con los objetos presentes en el archivo
-// deleteById(numbre)elimina un objeto con el id traido por parámetro
-// deleteAll()elimina todos los objetos presentes en el archivo
+// const angel = {
+//   name:'angel',
+//   edad:34,
+//   city: 'Buenos Aires'
+// }
+// const fede = {
+//   name: 'defe',
+//   edad: 20,
+//   city: 'miami'
+// }
+// const file ='./package2.json'
+  
+// fs.writeFile(file, '',(err)=> {
+//   err ? console.log('do not create file ') : console.log('file create successfully')
+// })
 
-const fs = require('fs') ;
+// const mock = [] ;
+// mock.push(angel)
 
-class container {
-  constructor(file){
- this.file = file
-  }
-save(object){
-  fs.writeFile(this.file ,JSON.stringify(object, null, 2), (err)=>{
-    if(err){
-      console.log('not can do write file')
-    }else{
-      console.log('good job')
-    }
-  } )
-return object.id
+
+
+// mock.push(fede)
+// console.log(mock)
+
+// fs.appendFile(file, JSON.stringify(mock), err => {
+//   err? console.log('not do create file') : console.log('file create successfully')
+// })
+
+
+
+const element = [
+  
+guitar = {
+  id:1,
+  name: 'Fender Telecaster', 
+  price: 2300,
+  thumbnail:'https://tiendamia.com/ar/producto?amz=B07CXJSFTH&pName=Fender-Player-Telecaster-Electric-Guitar-Maple-Fingerboard-Buttercream'
+},
+pedal ={
+  id:2,
+  name:'JSH Morning Glory',
+  price: 900,
+  thumbnail: 'https://www.jhspedals.info/morning-glory-v4' 
+},
+
+amplifier = {
+  id: 3,
+  name: 'Vox AC -30',
+  price: 3000,
+  thumbnail: 'https://voxamps.com/es/producto/ac30-onetwelve/'
 }
+
+
+]
+
+
+const search  =(array , num ) => {
+  array   
 }
-
-
-  guitar ={
-    id: 1,
-    name: 'Fender telecaster',
-    price: 1300,
-    thumbnail: 'https://guitar.com/guides/essential-guide/vintage-fender-telecaster-buying-guide/'
-  },
-  pedal ={
-    id: 2,
-    name: 'Morning Glory JHS',
-    price: 900,
-    thumbnail:'https://www.nstuffmusic.com/p-97838-jhs-morning-glory-v4-overdrive-pedal.aspx'
-  },
-  amplifier ={
-    id: 3 ,
-    name: 'Vox ac 30', 
-    price: 2300,
-    thumbnail: 'http://blueaudiostore.com.ar/bas/home/4750-amplificador-de-guitarra-vox-ac30-c2-30w-combo-valvular.html'
-  }
-const mock  = new container('./mock.json')
-mock.save(amplifier) //===> aca creo mediante la instancia de la clase un objeto en json pero solo el obj no el array 
-//entendi  que la consigna dice que debo pushear en un array los objetos para poder luego mediante los metodos de la clase buscar por id. 
