@@ -1,5 +1,5 @@
 const fs = require('fs')
-
+const express = require('express')
 //array
 
 const products = []
@@ -38,7 +38,8 @@ class container {
                 console.log(err)
                }else{
               let array  = JSON.parse(data, null , 2)
-                console.log(`the product ${array[array.length -1].name} has identifier ${array[array.length-1].id}`)
+                console.log(`the product ${array[array.length -1]} has identifier ${array[array.length-1].id}`)
+                add(array , )
                }
            })
         })
@@ -55,23 +56,11 @@ class container {
     }
     getAll(){
         fs.readFile(this.file, (err, data) => {
-            err ? console.log(err) : console.log(JSON.parse(data,null,2))
+            err ? console.log(err) : data
         })
     }
     deleteById(number){
-    fs.readFile(this.file , (err, data) => {
-        if(err){
-            console.log(err)
-        }else{
-            let array = JSON.parse(data ,null , 2)
-            array.forEach(element => {
-            if(number === element.id){
-                array.splice(element.id , 1)
-                console.log(array)
-            }
-            });
-        }
-    })
+        
     
     }
   
@@ -80,31 +69,59 @@ class container {
             err ?console.log(err) : console.log('delete all ')
         } )
     }
+ 
 }
 //instance
 
-const mockProducts = new container('./mockProducts.json')
+const mockProducts = new container('./mockProducts.txt')
 
 //fileAdd
 
+
 const add = (array, obj) => {
     array.push(obj)
-    setTimeout(()=>{
-        console.log(`the object ${JSON.stringify(obj.name)} was added to products `)
-    }, 500)
+  
 }
 
-
 const createFile = (file) =>{
-    fs.writeFile(file , '', err => {
+    fs.writeFile(file ,'' , err => {
         err? console.log('error fatal') : console.log('created file')
     })
 }
-// add(products , pedal)
-// add(products , guitar)
-// add(products , amplifier)
-// mockProducts.save(products)
 
-// mockProducts.deleteAll()
+add(products , pedal)
+add(products , guitar)
+add(products , amplifier)
 
-mockProducts.deleteById(2)
+
+
+
+
+
+//express
+const showExpress = JSON.stringify(products, null  ,2 )
+const app  = express()
+
+
+
+app.get('/products', (req , res) => {
+  res.end(showExpress)
+})
+
+app.get('/productsRandom' , (req , res) => {
+const products = JSON.parse(showExpress , null, 2 )
+    for(let e of products){ 
+        if(e.id === Math.round(Math.random()* 4)){
+            res.end(JSON.stringify(e , null , 2))
+        }
+    }
+})
+
+
+const PORT = 8080
+
+app.listen(PORT , () => {
+    console.log('i´m ready for express')
+})
+
+
