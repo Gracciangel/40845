@@ -7,20 +7,20 @@ const products = []
 //objects
 
 guitar = {
-    id:1,
+    id:0,
     name: 'Fender Telecaster', 
     price: 2300,
     thumbnail:'https://tiendamia.com/ar/producto?amz=B07CXJSFTH&pName=Fender-Player-Telecaster-Electric-Guitar-Maple-Fingerboard-Buttercream'
 }
 pedal ={
-    id:2,
+    id:1,
     name:'JSH Morning Glory',
     price: 900,
     thumbnail: 'https://www.jhspedals.info/morning-glory-v4' 
 }
 
 amplifier = {
-    id: 3,
+    id: 2,
     name: 'Vox AC -30',
     price: 3000,
     thumbnail: 'https://voxamps.com/es/producto/ac30-onetwelve/'
@@ -78,50 +78,49 @@ const mockProducts = new container('./mockProducts.txt')
 //fileAdd
 
 
-const add = (array, obj) => {
-    array.push(obj)
-  
-}
+    const add = (array, obj) => {
+        array.push(obj)
+    
+    }
 
-const createFile = (file) =>{
-    fs.writeFile(file ,'' , err => {
-        err? console.log('error fatal') : console.log('created file')
-    })
-}
+    const createFile = (file) =>{
+        fs.writeFile(file ,'' , err => {
+            err? console.log('error fatal') : console.log('created file')
+        })
+    }
 
+ 
 add(products , pedal)
-add(products , guitar)
 add(products , amplifier)
-
-
-
-
-
+add(products , guitar)
 
 //express
-const showExpress = JSON.stringify(products, null  ,2 )
-const app  = express()
+    const showExpress = JSON.stringify(products, null  ,2 )
+    const app  = express()
 
 
 
-app.get('/products', (req , res) => {
-  res.end(showExpress)
-})
+    app.get('/', (req , res) => {
+    res.end('<h1><a href="/products">PRODUCTS</a></h1> <h1><a href="/productsrandom">PRODUCTSRANDOM</a></h1>')
+    })
+    app.get('/products' , (req ,res)=> {
+        res.end(showExpress, null ,2 )
+    } )
 
-app.get('/productsRandom' , (req , res) => {
-const products = JSON.parse(showExpress , null, 2 )
-    for(let e of products){ 
-        if(e.id === Math.round(Math.random()* 4)){
-            res.end(JSON.stringify(e , null , 2))
-        }
-    }
-})
-
-
-const PORT = 8080
-
-app.listen(PORT , () => {
-    console.log('i´m ready for express')
-})
+    app.get('/productsrandom' , (req, res ) => {
+        let num = parseInt(Math.random()*3)
+        products.find(e => {
+            e.id === num ? res.end(JSON.stringify(e, null, 2)) : 'error'
+        })
+    })
 
 
+    const PORT = 8080
+
+    app.listen(PORT , () => {
+        console.log('i´m ready')
+    })
+
+
+
+    
