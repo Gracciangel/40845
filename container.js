@@ -132,3 +132,7 @@ mockProducts.randomProducts()
     app.listen(PORT , () => {
         console.log('i´m ready')
     })
+
+
+
+const URLGLITCH = 'https://brick-marbled-answer.glitch.me/'
