@@ -56,7 +56,7 @@ class container {
     }
     getAll(){
         fs.readFile(this.file, (err, data) => {
-            err ? console.log(err) : data
+            err ? console.log(err) : console.log(JSON.parse(data, null ,2))
         })
     }
     deleteById(number){
@@ -69,11 +69,32 @@ class container {
             err ?console.log(err) : console.log('delete all ')
         } )
     }
+    showTotalProducts(){
+       app.get('/products' , (req, res) => {
+        fs.readFile(this.file , (err, data) => {
+            err ? console.log(err) : res.end(data)
+        })
+       })
+    }
+    randomProducts(){
+        app.get('/productsrandom' , (req, res )=> {
+            fs.readFile(this.file , (err, data) => {
+                if (!err){
+                    const num = parseInt(Math.random()*3)
+                    const product = JSON.parse(data, null ,2) ; 
+                    product.find(e  => {
+                        num === e.id ? res.end(JSON.stringify(e, null ,2)) : 'error'
+                    })
+                }
+            })
+        })
+    }
  
 }
 //instance
 
-const mockProducts = new container('./mockProducts.txt')
+const mockProducts = new container('./mockProducts.txt') ;
+
 
 //fileAdd
 
@@ -88,30 +109,21 @@ const mockProducts = new container('./mockProducts.txt')
             err? console.log('error fatal') : console.log('created file')
         })
     }
+    add(products , pedal)
+    add(products , guitar)
+    add(products , amplifier)
 
- 
-add(products , pedal)
-add(products , amplifier)
-add(products , guitar)
-
+    mockProducts.save(products)
 //express
-    const showExpress = JSON.stringify(products, null  ,2 )
-    const app  = express()
 
 
+const app  = express()
+
+mockProducts.showTotalProducts()
+mockProducts.randomProducts()
 
     app.get('/', (req , res) => {
-    res.end('<h1><a href="/products">PRODUCTS</a></h1> <h1><a href="/productsrandom">PRODUCTSRANDOM</a></h1>')
-    })
-    app.get('/products' , (req ,res)=> {
-        res.end(showExpress, null ,2 )
-    } )
-
-    app.get('/productsrandom' , (req, res ) => {
-        let num = parseInt(Math.random()*3)
-        products.find(e => {
-            e.id === num ? res.end(JSON.stringify(e, null, 2)) : 'error'
-        })
+    res.end('<h1><a href="/products">PRODUCTS</a></h1> <h1><a href="/productsrandom">PRODUCTOS RANDOM</a></h1>')
     })
 
 
@@ -120,7 +132,3 @@ add(products , guitar)
     app.listen(PORT , () => {
         console.log('i´m ready')
     })
-
-
-
-    
